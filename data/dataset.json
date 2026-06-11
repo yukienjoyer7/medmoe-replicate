@@ -1,0 +1,1402 @@
+[
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_002.jpg",
+    "question": "is there a lesion in the left temporal lobe?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_036.jpg",
+    "question": "the infarcts seen are most likely what type?",
+    "answer": "punctate",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_044.jpg",
+    "question": "is there fluid in the lungs?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_025.jpg",
+    "question": "where are the kidneys located?",
+    "answer": "adjacent to vertebrae",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_011.jpg",
+    "question": "is the trachea deviated?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_002.jpg",
+    "question": "how would you describe the central and surrounding intesities of the abnormality seen?",
+    "answer": "central hyperintensity and surrounding hypointensity",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_037.jpg",
+    "question": "where in relation to the mass is the left kidney located in this image?",
+    "answer": "posteriorly",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_035.jpg",
+    "question": "what side of the brain is the lesion on?",
+    "answer": "right",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_014.jpg",
+    "question": "what parts of the lung fields contain the most prominent ground glass opacities?",
+    "answer": "lower lung fields",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_012.jpg",
+    "question": "is the brain scan normal?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_022.jpg",
+    "question": "is there evidence of grey matter edema?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_037.jpg",
+    "question": "what is present?",
+    "answer": "uterus",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_002.jpg",
+    "question": "what is present?",
+    "answer": "soft tissue",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_046.jpg",
+    "question": "what demonstrates clusters of tangled bacilli (black)?",
+    "answer": "modified silver (warthin-starry) stain",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_030.jpg",
+    "question": "was this image taken with an mri or ct scanner?",
+    "answer": "ct",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_006.jpg",
+    "question": "in what lobes are the lesions located?",
+    "answer": "bilateral parietal lobes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_042.jpg",
+    "question": "what vascular territory is the lesion?",
+    "answer": "right mca",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_018.jpg",
+    "question": "what are the findings in the sigmoid colon?",
+    "answer": "diverticuli",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_029.jpg",
+    "question": "are structures associated with the midbrain located in this image?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_027.jpg",
+    "question": "how do you identify small bowel?",
+    "answer": "plicae circulares",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_047.jpg",
+    "question": "is there tracheal deviation?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_044.jpg",
+    "question": "is this image a ct or mri image?",
+    "answer": "ct",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_009.jpg",
+    "question": "is the patient's heart enlarged?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_009.jpg",
+    "question": "is there high signal intensity in the csf?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_043.jpg",
+    "question": "are the lungs normal?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_035.jpg",
+    "question": "what does this image show?",
+    "answer": "granuloma with minimal necrosis source unknown",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_007.jpg",
+    "question": "the lesion is located where in this image?",
+    "answer": "right lobe of the liver",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_019.jpg",
+    "question": "when is kaposi's sarcoma?",
+    "answer": "in late nodular stage",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_038.jpg",
+    "question": "are there rib fractures present?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_034.jpg",
+    "question": "where in the cortex are the lesions present?",
+    "answer": "diffuse",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_032.jpg",
+    "question": "what organ system is pictured?",
+    "answer": "the brain",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_045.jpg",
+    "question": "are the lungs increased in size?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_029.jpg",
+    "question": "is the sigmoid colon visualized at this axial section?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_002.jpg",
+    "question": "is the transverse colon in view?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_005.jpg",
+    "question": "can you see kidneys in this image",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_001.jpg",
+    "question": "what is present?",
+    "answer": "vasculature",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_032.jpg",
+    "question": "which is highlighted in this image, white or gray matter?",
+    "answer": "gray matter",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_006.jpg",
+    "question": "what does this image show?",
+    "answer": "primary in stomach",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_028.jpg",
+    "question": "is the heart clearly visible?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_023.jpg",
+    "question": "how can you tell that one side is small bowen and the other side is large bowel?",
+    "answer": "location of the contrast?",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_028.jpg",
+    "question": "where is this from?",
+    "answer": "female reproductive system",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_043.jpg",
+    "question": "where is the lesion located in this image?",
+    "answer": "right lobe of the liver",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_028.jpg",
+    "question": "is the cerebellum seen on this axial section?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_009.jpg",
+    "question": "what is present?",
+    "answer": "hepatobiliary",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_022.jpg",
+    "question": "are the lungs affected?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_031.jpg",
+    "question": "is the aorta visible in this section?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_039.jpg",
+    "question": "what are the lesions indicative of?",
+    "answer": "adenopathy",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_032.jpg",
+    "question": "is the chest x-ray normal?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_005.jpg",
+    "question": "what is present?",
+    "answer": "respiratory",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_034.jpg",
+    "question": "what pathology is shown at the lung bases?",
+    "answer": "nodules",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_038.jpg",
+    "question": "what is present?",
+    "answer": "joints",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_011.jpg",
+    "question": "what is the lesion in this image?",
+    "answer": "ring-enhancing lesion",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_045.jpg",
+    "question": "how many ring enhancing lesions can be found in this image?",
+    "answer": "one",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_039.jpg",
+    "question": "where is the cardiac border more obscured?",
+    "answer": "right",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_009.jpg",
+    "question": "what pathology is shown in the aorta?",
+    "answer": "it is enlarged with prominence of the aortic knob",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_020.jpg",
+    "question": "which region of the brain is impacted?",
+    "answer": "anterior surface",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_004.jpg",
+    "question": "is the heart enlarged?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_015.jpg",
+    "question": "what does haphazard crypt organization result from?",
+    "answer": "repeated injury and regeneration",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_038.jpg",
+    "question": "are there any abnormalities seen in the spleen?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_029.jpg",
+    "question": "how would you describe the duodenum?",
+    "answer": "edematous",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_007.jpg",
+    "question": "what is present?",
+    "answer": "nervous",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_041.jpg",
+    "question": "is there any presence of tracheal deviation?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_027.jpg",
+    "question": "what does this image show?",
+    "answer": "adenocarcinoma",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_045.jpg",
+    "question": "what does this image show?",
+    "answer": "renal pelvis",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_000.jpg",
+    "question": "does this ct have contrast or no contrast?",
+    "answer": "contrast",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_048.jpg",
+    "question": "is there intrahepatic ductal dilatation?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_030.jpg",
+    "question": "is mass effect obvious?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_020.jpg",
+    "question": "is there contrast present in the bowel?",
+    "answer": "in the bowel",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_026.jpg",
+    "question": "is the heart displaced?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_040.jpg",
+    "question": "what hemisphere are the lesions located in?",
+    "answer": "bilateral",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_046.jpg",
+    "question": "is the gallbladder wall thickened?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_016.jpg",
+    "question": "is the aorta visualized?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_003.jpg",
+    "question": "is there oral contrast located in the colon?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_035.jpg",
+    "question": "what plane of the abdomen is this image?",
+    "answer": "axial",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_043.jpg",
+    "question": "what opened uterus with blood clot in cervical canal and small endometrial cavity?",
+    "answer": "fixed tissue",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_042.jpg",
+    "question": "what is the small mass near the left kidney?",
+    "answer": "splenule",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_031.jpg",
+    "question": "which lung has diffuse opacification?",
+    "answer": "right",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_022.jpg",
+    "question": "is the contrast in the bowels or the vasculature?",
+    "answer": "in the vasculature",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_003.jpg",
+    "question": "where do the photomicrographs show an inflammatory reaction after ischemic necrosis infarction?",
+    "answer": "in the myocardium",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_025.jpg",
+    "question": "what caused the lesion?",
+    "answer": "metastasis",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_048.jpg",
+    "question": "where is this from?",
+    "answer": "vasculature",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_033.jpg",
+    "question": "what differentiates the common bile duct and cystic duct?",
+    "answer": "cystic duct is more tortuous",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_026.jpg",
+    "question": "what part of the liver is the mass located in?",
+    "answer": "left hepatic lobe",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_030.jpg",
+    "question": "what is present?",
+    "answer": "hematologic",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_033.jpg",
+    "question": "is there evidence of brainstem herniation in this section",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_010.jpg",
+    "question": "is tracheal deviation present?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_015.jpg",
+    "question": "is there oral contrast in the colon?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_049.jpg",
+    "question": "is this a ct image?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_020.jpg",
+    "question": "are the lungs clear?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_017.jpg",
+    "question": "does this ct use iv contrast material?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_014.jpg",
+    "question": "what are the structures near the vertebral column?",
+    "answer": "psoas muscles",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_011.jpg",
+    "question": "which part of the bowel is involved by the mass?",
+    "answer": "jejunum",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_026.jpg",
+    "question": "what vessel is likely the cause of this infarction?",
+    "answer": "left mca",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_006.jpg",
+    "question": "what organ is superimposed on the lung fields?",
+    "answer": "breasts",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_047.jpg",
+    "question": "the dark space in the central portion of the image represents what structure(s)?",
+    "answer": "lateral ventricles",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_040.jpg",
+    "question": "is the trachea midline?",
+    "answer": "in the midline",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_045.jpg",
+    "question": "is there a fracture in the vertebrae seen?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_001.jpg",
+    "question": "describe the size and density of this lesion?",
+    "answer": "5.6cm focal, predominantly hypodense",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_019.jpg",
+    "question": "is there mass effect?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_044.jpg",
+    "question": "are the kidneys normal?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_024.jpg",
+    "question": "how do you distinguish large bowel?",
+    "answer": "haustra",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_028.jpg",
+    "question": "describe the density of this lesion?",
+    "answer": "5.6cm focal, predominantly hypodense",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_039.jpg",
+    "question": "what is present?",
+    "answer": "respiratory",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_037.jpg",
+    "question": "what is at the base of the right lung?",
+    "answer": "nodules",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_034.jpg",
+    "question": "what is present?",
+    "answer": "lymphoma",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_024.jpg",
+    "question": "what does this image show?",
+    "answer": "kidney glomerulus",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_016.jpg",
+    "question": "how is this a example one pedunculated myoma?",
+    "answer": "good",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_041.jpg",
+    "question": "is there shifting of structures across the middle?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_029.jpg",
+    "question": "what is postoperative cardiac surgery thought?",
+    "answer": "to be silicon",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_041.jpg",
+    "question": "how is heart left hypertrophy compared to normal heart?",
+    "answer": "ventricular",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_016.jpg",
+    "question": "can the cerebral cortex be visualized at this level?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_043.jpg",
+    "question": "is there air in the bowel?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_039.jpg",
+    "question": "what is the pathology seen in the spleen?",
+    "answer": "nothing",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_027.jpg",
+    "question": "where is the lesion?",
+    "answer": "right parietal lobe",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_036.jpg",
+    "question": "does this chest x-ray show signs of diffuse opacities in both right and left lung fields?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_032.jpg",
+    "question": "what is present?",
+    "answer": "bone marrow",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_017.jpg",
+    "question": "what brain structures would be affected by the lesion in the right frontal area of the brain?",
+    "answer": "basal ganglia (caudate and putamen)",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_000.jpg",
+    "question": "is this the brain?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_020.jpg",
+    "question": "what is present?",
+    "answer": "endocrine",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_048.jpg",
+    "question": "what type of contrast agent is used in this mri?",
+    "answer": "gadolinium",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_000.jpg",
+    "question": "is there anything wrong with the lungs?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_018.jpg",
+    "question": "what is present?",
+    "answer": "gastrointestinal",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_021.jpg",
+    "question": "is this a chest x-ray?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_007.jpg",
+    "question": "on which side is the cardiac border more obscured?",
+    "answer": "right",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_049.jpg",
+    "question": "what is present?",
+    "answer": "edema",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_001.jpg",
+    "question": "is this an infectious process?",
+    "answer": "maybe",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_010.jpg",
+    "question": "what does this image show?",
+    "answer": "hyoplasia of kidney",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_022.jpg",
+    "question": "what does this image show?",
+    "answer": "ductopenia",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_023.jpg",
+    "question": "is there an abnormal lesion?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_023.jpg",
+    "question": "what shows characteristic, univacuolated and multivacuolated lipoblasts with bizarre nuclei?",
+    "answer": "tumour",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_014.jpg",
+    "question": "what does this image show?",
+    "answer": "neoplastic osteoblasts and tumor osteoid",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_042.jpg",
+    "question": "is there a pneumothorax present?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_026.jpg",
+    "question": "what is present?",
+    "answer": "thymus",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_023.jpg",
+    "question": "which way is the trachea deviating in this image?",
+    "answer": "left",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_003.jpg",
+    "question": "is the heart enlarged?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_012.jpg",
+    "question": "is there a pneumothorax?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_004.jpg",
+    "question": "what is present?",
+    "answer": "cytomegalovirus",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_013.jpg",
+    "question": "are the ventricles the same size?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_019.jpg",
+    "question": "are the heart and lungs displayed well in this film",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_049.jpg",
+    "question": "what type of hepatic lesion has internal gas and enhancing rim?",
+    "answer": "abcess",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_018.jpg",
+    "question": "where are the lesions?",
+    "answer": "paratracheal area",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_025.jpg",
+    "question": "what does this image show?",
+    "answer": "cystic fibrosis",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_046.jpg",
+    "question": "are the ground glass opacities located more in the apex or base of the lung?",
+    "answer": "base",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_008.jpg",
+    "question": "what are present?",
+    "answer": "extremities",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_035.jpg",
+    "question": "is the heart enlarged?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_014.jpg",
+    "question": "is this brain scan normal?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_037.jpg",
+    "question": "what shape would the lesion be if this were a subdural hematoma?",
+    "answer": "crescent",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_013.jpg",
+    "question": "what sectioned to show cut surface kidney portion of jejunum shown in this surgically resected specimen excellent?",
+    "answer": "nodular tumor",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_049.jpg",
+    "question": "what indicates there is a consolidation in the right lung?",
+    "answer": "blunting of the costophrenic angle, loss of the right hemidiaphragm and right heart border",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_047.jpg",
+    "question": "what is present?",
+    "answer": "retroperitoneal liposarcoma",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_027.jpg",
+    "question": "does the heart border appear normal?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_044.jpg",
+    "question": "where is this?",
+    "answer": "oral",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_003.jpg",
+    "question": "about how often do you see bilateral wilms tumor?",
+    "answer": "5%",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_033.jpg",
+    "question": "what is present?",
+    "answer": "uterus",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_025.jpg",
+    "question": "is there cardiac enlargement?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_013.jpg",
+    "question": "is there a normal contour of the heart?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_019.jpg",
+    "question": "is there an brain bleed?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_005.jpg",
+    "question": "what is most likely causing these lesions?",
+    "answer": "cva",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_008.jpg",
+    "question": "is the lesion uniform in density?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_040.jpg",
+    "question": "are patchy infiltrates depicted?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_010.jpg",
+    "question": "which lobe is infarcted",
+    "answer": "right parietal",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_012.jpg",
+    "question": "what is present?",
+    "answer": "joints",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_024.jpg",
+    "question": "would you expect pleural plaques on other pleural surfaces vs just the hemithoraces?",
+    "answer": "not sure",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_048.jpg",
+    "question": "is there pleural thickening in the r lung?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_004.jpg",
+    "question": "are the ventricles symmetrical?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_017.jpg",
+    "question": "what is present?",
+    "answer": "gastrointestinal",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_012.jpg",
+    "question": "is there a fracture?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_021.jpg",
+    "question": "is there a cavitary lesion?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_047.jpg",
+    "question": "is a noncontrast ct the first imaging test for a suspected brain bleed?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_046.jpg",
+    "question": "is the grey/white matter border well differentiated?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_033.jpg",
+    "question": "how many ribs are present in vertical order on this chest radiograph",
+    "answer": "12",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_038.jpg",
+    "question": "is the lesion causing significant brainstem herniation?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_004.jpg",
+    "question": "is this picture abnormal?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_024.jpg",
+    "question": "is there evidence of cytotoxic edema in the right temporal lobe?",
+    "answer": "yes",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_021.jpg",
+    "question": "what is present?",
+    "answer": "basilar skull fracture",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_021.jpg",
+    "question": "is the gallbladder enlarged?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_010.jpg",
+    "question": "how many kidneys are in this image?",
+    "answer": "2",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_031.jpg",
+    "question": "was this image taken from a superior-most section of the brain?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_036.jpg",
+    "question": "what is present?",
+    "answer": "adrenal",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_034.jpg",
+    "question": "the abscess is located in what structure?",
+    "answer": "descending colon",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_008.jpg",
+    "question": "is the heart enlarged?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_017.jpg",
+    "question": "is the lung parenchyma well visualized?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_040.jpg",
+    "question": "what is present?",
+    "answer": "female reproductive",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_015.jpg",
+    "question": "is the heart abnormal?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_011.jpg",
+    "question": "what is present?",
+    "answer": "pharynx",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_031.jpg",
+    "question": "what does this image show?",
+    "answer": "thyroid",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_018.jpg",
+    "question": "how would you describe the pathology seen in the above image?",
+    "answer": "rounded, well-defined pulmonary nodules varying in size and pattern",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_001.jpg",
+    "question": "is a pleural effusion present?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_006.jpg",
+    "question": "is there air in the bowel?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_042.jpg",
+    "question": "where is this?",
+    "answer": "oral",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_008.jpg",
+    "question": "can you view the colon in this image?",
+    "answer": "yes",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_041.jpg",
+    "question": "what are the hyperintensities signaling?",
+    "answer": "hemorrhage",
+    "modality": "MRI",
+    "label": 2
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/pathvqa_000.jpg",
+    "question": "how does this image show uric acid deposits?",
+    "answer": "with giant cells easily recognizable as gout or tophus",
+    "modality": "Pathology",
+    "label": 3
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_005.jpg",
+    "question": "are there rib fractures present?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_036.jpg",
+    "question": "what are defining radiological features of large bowel?",
+    "answer": "air?",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_016.jpg",
+    "question": "is the opacity near the left lung apex pathologic?",
+    "answer": "no",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_007.jpg",
+    "question": "is there contrast in the bowels?",
+    "answer": "in the bowels",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_ct_013.jpg",
+    "question": "is there mass effect?",
+    "answer": "no",
+    "modality": "CT",
+    "label": 1
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_xray_030.jpg",
+    "question": "are there decreased lung markings in the right upper lung field?",
+    "answer": "yes",
+    "modality": "X-Ray",
+    "label": 0
+  },
+  {
+    "image": "/home/dio/Me/Studies/Research/Gemastik-2026-VLM/med-moe-reimplement/data/images/vqarad_mri_015.jpg",
+    "question": "has the brainstem herniated?",
+    "answer": "no",
+    "modality": "MRI",
+    "label": 2
+  }
+]
