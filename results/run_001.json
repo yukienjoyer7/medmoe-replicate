@@ -1,0 +1,82 @@
+{
+  "run_id": "run_001",
+  "date": "2026-06-11",
+  "description": "3-epoch paper-exact Med-MoE reimplementation on VQA-RAD + PathVQA",
+  "config": {
+    "model": {
+      "llm": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "vision_encoder": "CLIP ViT-B/32 (openai, frozen)",
+      "projector": "MLP 512->576->576 (GELU)",
+      "router": "Linear 576->4",
+      "moe": {
+        "num_experts": 4,
+        "top_k": 2,
+        "meta_expert": true,
+        "intermediate_dim": 576
+      }
+    },
+    "data": {
+      "dataset": "VQA-RAD + PathVQA",
+      "total_samples": 200,
+      "samples_per_class": 50,
+      "classes": ["X-Ray", "CT", "MRI", "Pathology"],
+      "max_length": 64
+    },
+    "training": {
+      "epochs_per_phase": 3,
+      "batch_size": 2,
+      "gradient_accumulation_steps": 4,
+      "effective_batch_size": 8,
+      "mixed_precision": "fp16",
+      "phase1_lr": 1e-3,
+      "phase2_lr": 3e-4,
+      "phase3_lr": 3e-4,
+      "scheduler": "linear_with_warmup",
+      "warmup_ratio": 0.1
+    },
+    "losses": {
+      "phase1": "L_Align (LM CE)",
+      "phase2": "L_Instr (LM CE) + L_Router (CE over domain labels)",
+      "phase3": "L_MoE (LM CE)"
+    },
+    "trainable_params": {
+      "phase1": "0.63M (projector only)",
+      "phase2": "135.15M (LLM + router + projector)",
+      "phase3": "149.37M (MoE experts + meta-expert)"
+    }
+  },
+  "results": {
+    "phase1": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 4.822},
+        {"epoch": 2, "lm_loss": 4.077},
+        {"epoch": 3, "lm_loss": 3.641}
+      ],
+      "final_lm_loss": 3.641
+    },
+    "phase2": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 2.929, "router_loss": 4.291, "router_acc": 0.360},
+        {"epoch": 2, "lm_loss": 1.417, "router_loss": 0.679, "router_acc": 0.810},
+        {"epoch": 3, "lm_loss": 1.005, "router_loss": 0.030, "router_acc": 0.990}
+      ],
+      "final_lm_loss": 1.005,
+      "final_router_loss": 0.030,
+      "final_router_acc": 0.990
+    },
+    "phase3": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 8.219},
+        {"epoch": 2, "lm_loss": 3.347},
+        {"epoch": 3, "lm_loss": 2.268}
+      ],
+      "final_lm_loss": 2.268,
+      "note": "Epoch 1 spike expected — MoE activation replaces all FFN layers with truncated weights"
+    }
+  },
+  "checkpoints": {
+    "phase1": "checkpoints/phase1.pt",
+    "phase2": "checkpoints/phase2.pt",
+    "phase3": "checkpoints/phase3.pt"
+  }
+}

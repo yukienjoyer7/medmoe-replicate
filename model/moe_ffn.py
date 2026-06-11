@@ -61,6 +61,8 @@ class MoEFFN(nn.Module):
         self.meta_expert = Expert(hidden_dim, intermediate_dim)
         self.gate        = nn.Linear(hidden_dim, num_experts, bias=False)
 
+        self.last_routing: dict | None = None  # populated on every forward pass
+
     def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         """
         Args:
@@ -79,6 +81,13 @@ class MoEFFN(nn.Module):
 
         top_k_probs, top_k_indices = torch.topk(gate_probs, self.top_k, dim=-1)
         top_k_weights = top_k_probs / top_k_probs.sum(dim=-1, keepdim=True)
+
+        # store mean routing decision across tokens for inspection
+        self.last_routing = {
+            "indices": top_k_indices.detach().cpu(),   # (N, top_k)
+            "weights": top_k_weights.detach().cpu(),   # (N, top_k)
+            "gate_probs": gate_probs.detach().cpu(),   # (N, num_experts)
+        }
 
         # --- domain experts ---
         domain_out = torch.zeros_like(x_flat)
