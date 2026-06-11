@@ -18,7 +18,8 @@ class MedMoEDataset(Dataset):
 
         self.max_length = max_length
 
-        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+        from transformers import AutoTokenizer
+        self.tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM-135M-Instruct")
         self.tokenizer.pad_token = self.tokenizer.eos_token
 
         _, _, self.preprocess = open_clip.create_model_and_transforms(
@@ -35,8 +36,14 @@ class MedMoEDataset(Dataset):
         image = Image.open(item["image"]).convert("RGB")
         image_tensor = self.preprocess(image)           # (3, 224, 224)
 
-        # --- text: format as "Q: {question} A: {answer}" ---
-        text = f"Q: {item['question']} A: {item['answer']}"
+        # --- text: SmolLM instruct chat template ---
+        messages = [
+            {"role": "user",      "content": item["question"]},
+            {"role": "assistant", "content": item["answer"]},
+        ]
+        text = self.tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=False
+        )
         enc  = self.tokenizer(
             text,
             max_length=self.max_length,

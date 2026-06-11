@@ -1,16 +1,15 @@
 """
-MoE FFN layer — drop-in replacement for a standard transformer FFN block.
+MoE FFN layer — drop-in replacement for a transformer FFN block.
 
-Architecture:
-  input (B, T, D)
-    → gating network → softmax → top-k selection
-    → each token routed to k experts
-    → weighted sum of expert outputs
-  output (B, T, D)
+Expert structure matches SmolLM's LlamaMLP (SwiGLU) so Phase 3 can copy
+weights from the trained FFN. intermediate_dim is kept small (default=576)
+to fit in 6GB VRAM.
 
-Also computes the Switch Transformer auxiliary load-balancing loss:
-  L_aux = N * sum_i(f_i * p_i)
-where f_i = hard dispatch fraction (no grad), p_i = soft routing prob (has grad).
+Output = Σ(top-k gated domain experts) + meta_expert(x)
+         ↑ specialised                    ↑ always activated, captures global info
+
+Aux loss (Switch Transformer):
+  L_aux = N * Σ_i(f_i * p_i)  — only over domain experts, not meta.
 """
 
 import torch
@@ -19,88 +18,96 @@ import torch.nn.functional as F
 
 
 class Expert(nn.Module):
-    """Single expert: same structure as a GPT-2 FFN (D → 4D → D)."""
+    """SwiGLU expert — matches LlamaMLP structure for weight copying in Phase 3."""
 
-    def __init__(self, hidden_dim: int):
+    def __init__(self, hidden_dim: int, intermediate_dim: int):
         super().__init__()
-        self.fc1 = nn.Linear(hidden_dim, hidden_dim * 4)
-        self.fc2 = nn.Linear(hidden_dim * 4, hidden_dim)
+        self.gate_proj = nn.Linear(hidden_dim, intermediate_dim, bias=False)
+        self.up_proj   = nn.Linear(hidden_dim, intermediate_dim, bias=False)
+        self.down_proj = nn.Linear(intermediate_dim, hidden_dim, bias=False)
+        self.act       = nn.SiLU()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.fc2(F.gelu(self.fc1(x)))
+        return self.down_proj(self.act(self.gate_proj(x)) * self.up_proj(x))
 
 
 class MoEFFN(nn.Module):
     """
-    Mixture-of-Experts FFN.
+    Mixture-of-Experts FFN with meta-expert.
 
     Args:
-        hidden_dim: token embedding dimension (768 for GPT-2)
-        num_experts: number of parallel expert FFNs (default 4)
-        top_k: how many experts each token is routed to (default 2)
+        hidden_dim:       token embedding dimension (576 for SmolLM)
+        intermediate_dim: inner FFN dimension (kept at 576 to save memory)
+        num_experts:      domain expert count (default 4)
+        top_k:            experts activated per token (default 2)
     """
 
-    def __init__(self, hidden_dim: int, num_experts: int = 4, top_k: int = 2):
+    def __init__(
+        self,
+        hidden_dim: int,
+        intermediate_dim: int,
+        num_experts: int = 4,
+        top_k: int = 2,
+    ):
         super().__init__()
         assert top_k <= num_experts
 
         self.num_experts = num_experts
-        self.top_k = top_k
+        self.top_k       = top_k
 
-        self.experts = nn.ModuleList([Expert(hidden_dim) for _ in range(num_experts)])
-        self.gate = nn.Linear(hidden_dim, num_experts, bias=False)
+        self.experts     = nn.ModuleList(
+            [Expert(hidden_dim, intermediate_dim) for _ in range(num_experts)]
+        )
+        self.meta_expert = Expert(hidden_dim, intermediate_dim)
+        self.gate        = nn.Linear(hidden_dim, num_experts, bias=False)
 
     def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         """
         Args:
             x: (B, T, D)
         Returns:
-            output: (B, T, D)
-            aux_loss: scalar tensor
+            output:   (B, T, D)
+            aux_loss: scalar
         """
         B, T, D = x.shape
-        x_flat = x.view(-1, D)          # (B*T, D)
-        N = x_flat.shape[0]             # total tokens in batch
+        x_flat  = x.view(-1, D)
+        N       = x_flat.shape[0]
 
         # --- gating ---
-        gate_logits = self.gate(x_flat)                         # (N, num_experts)
-        gate_probs  = F.softmax(gate_logits, dim=-1)            # (N, num_experts)
+        gate_logits = self.gate(x_flat)
+        gate_probs  = F.softmax(gate_logits, dim=-1)
 
         top_k_probs, top_k_indices = torch.topk(gate_probs, self.top_k, dim=-1)
-        # re-normalise so selected weights sum to 1
-        top_k_weights = top_k_probs / top_k_probs.sum(dim=-1, keepdim=True)  # (N, k)
+        top_k_weights = top_k_probs / top_k_probs.sum(dim=-1, keepdim=True)
 
-        # --- expert computation ---
-        output = torch.zeros_like(x_flat)                       # (N, D)
-
+        # --- domain experts ---
+        domain_out = torch.zeros_like(x_flat)
         for k in range(self.top_k):
-            expert_idx = top_k_indices[:, k]                    # (N,)
-            weight     = top_k_weights[:, k].unsqueeze(-1)      # (N, 1)
-
+            expert_idx = top_k_indices[:, k]
+            weight     = top_k_weights[:, k].unsqueeze(-1)
             for e in range(self.num_experts):
-                mask = (expert_idx == e)                        # (N,) bool
+                mask = (expert_idx == e)
                 if mask.any():
-                    output[mask] += weight[mask] * self.experts[e](x_flat[mask])
+                    domain_out[mask] += weight[mask] * self.experts[e](x_flat[mask])
 
-        output = output.view(B, T, D)
+        # --- meta expert (always activated) ---
+        meta_out = self.meta_expert(x_flat)
 
-        # --- auxiliary load-balancing loss ---
+        output = (domain_out + meta_out).view(B, T, D)
+
+        # --- aux load-balancing loss (domain experts only) ---
         aux_loss = self._aux_loss(gate_probs, top_k_indices, N)
 
         return output, aux_loss
 
     def _aux_loss(
         self,
-        gate_probs: torch.Tensor,   # (N, num_experts) — soft, has grad
-        top_k_indices: torch.Tensor,# (N, k) — hard dispatch
-        N: int,
+        gate_probs:    torch.Tensor,
+        top_k_indices: torch.Tensor,
+        N:             int,
     ) -> torch.Tensor:
-        # f_i: fraction of tokens dispatched to expert i (no gradient)
         dispatch = torch.zeros(N, self.num_experts, device=gate_probs.device)
         dispatch.scatter_(1, top_k_indices, 1.0)
-        f = dispatch.mean(dim=0)                    # (num_experts,)
-
-        # p_i: mean routing probability for expert i (has gradient)
-        p = gate_probs.mean(dim=0)                  # (num_experts,)
-
+        f = dispatch.mean(dim=0)
+        p = gate_probs.mean(dim=0)
         return self.num_experts * (f * p).sum()
