@@ -10,9 +10,10 @@ Three-phase design:
   Phase 2: LLM + router train       — plain VLM, no MoE
   Phase 3: activate_moe() → MoE trains — MoE active, router frozen
 
-Routing in Phase 3 (paper eq. 4):
-  Router reads T_comb → softmax → G_i  (sequence-level, frozen)
-  MoEWrapper stores G_i before each lm() call so MoEFFN can read it.
+Routing (paper Fig. 2 + eq. 4):
+  Phase 2: router reads T_i (projector output, pre-LLM) → trained on domain labels
+  Phase 3: router frozen inside each MoEWrapper; reads x[:, 0:1, :] (image token
+           position in per-layer hidden state) → gate_probs → selects top-k experts.
   No separate learned gate inside MoEFFN.
 """
 
@@ -34,17 +35,26 @@ INTERMEDIATE_DIM = 576   # expert inner dim — kept small for 6GB VRAM
 class MoEWrapper(nn.Module):
     """
     Shim: looks like LlamaMLP to LlamaDecoderLayer.
-    MedMoE.forward() sets current_gate_probs before calling lm() so the
-    frozen Router's output reaches MoEFFN without modifying transformers internals.
+    Holds a frozen ref to the Router; calls it on x[:, 0:1, :] (image token
+    position in the current hidden state) to produce gate_probs per layer —
+    matching paper Fig. 2 Phase 3 where Router sits inside each MoE block.
     """
 
-    def __init__(self, moe: MoEFFN):
+    def __init__(self, moe: MoEFFN, router=None):
         super().__init__()
         self.moe = moe
-        self.current_gate_probs: torch.Tensor | None = None
+        # non-registered reference so router params don't appear in
+        # self.parameters() and are untouched by freeze_for_phase3
+        object.__setattr__(self, "_router", router)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.moe(x, self.current_gate_probs)
+        router = object.__getattribute__(self, "_router")
+        if router is not None:
+            gate_logits = router(x[:, 0:1, :])          # image token at this layer
+            gate_probs  = F.softmax(gate_logits, dim=-1)
+        else:
+            gate_probs = None
+        return self.moe(x, gate_probs)
 
 
 class MedMoE(nn.Module):
@@ -83,7 +93,7 @@ class MedMoE(nn.Module):
                 expert.up_proj.weight.data   = orig.up_proj.weight.data[:INTERMEDIATE_DIM, :].clone()
                 expert.down_proj.weight.data = orig.down_proj.weight.data[:, :INTERMEDIATE_DIM].clone()
 
-            layer.mlp = MoEWrapper(moe).to(device)
+            layer.mlp = MoEWrapper(moe, router=self.router).to(device)
 
         self._moe_active = True
         print(f"MoE activated: {len(self.lm.model.layers)} layers × "
@@ -114,25 +124,17 @@ class MedMoE(nn.Module):
         img_pad       = torch.full((B, 1), -100, dtype=torch.long, device=labels.device)
         labels_padded = torch.cat([img_pad, labels], dim=1)
 
-        # Router reads T_comb (paper eq. 3).  In Phase 3 the router is frozen
-        # so no gradient flows through it, but we still compute G_i here so
-        # MoEFFN receives it as gate_probs (paper eq. 4).
-        router_logits = self.router(inputs_embeds)
-
-        if self._moe_active:
-            gate_probs = F.softmax(router_logits, dim=-1)   # (B, num_domains)
-            for layer in self.lm.model.layers:
-                layer.mlp.current_gate_probs = gate_probs
+        # Router reads T_i only (paper Fig. 2: orange arrow from projector → Router).
+        # Phase 2: computes loss for router training.
+        # Phase 3: router is frozen; gate_probs are computed inside each MoEWrapper
+        #          on the per-layer hidden state, so no injection needed here.
+        router_logits = self.router(image_token)
 
         out = self.lm(
             inputs_embeds=inputs_embeds,
             labels=labels_padded,
             return_dict=True,
         )
-
-        if self._moe_active:
-            for layer in self.lm.model.layers:
-                layer.mlp.current_gate_probs = None
 
         lm_loss = out.loss
         return lm_loss, router_logits, torch.tensor(0.0, device=lm_loss.device)

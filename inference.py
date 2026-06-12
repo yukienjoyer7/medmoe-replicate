@@ -81,7 +81,6 @@ def print_routing(routing: list[dict], domain_names: list[str]):
 
 
 def generate_response(model: MedMoE, tokenizer, image_tensor: torch.Tensor, question: str) -> str:
-    import torch.nn.functional as F
     model_dtype = next(model.lm.parameters()).dtype
 
     image_emb   = model.clip(image_tensor)
@@ -94,14 +93,8 @@ def generate_response(model: MedMoE, tokenizer, image_tensor: torch.Tensor, ques
     text_embeds   = model.lm.model.embed_tokens(input_ids)
     inputs_embeds = torch.cat([image_token, text_embeds], dim=1)
 
-    # set gate_probs on all MoEWrappers so MoEFFN has routing weights during generation
-    if model._moe_active:
-        router_logits = model.router(inputs_embeds)
-        gate_probs = F.softmax(router_logits, dim=-1)
-        for layer in model.lm.model.layers:
-            if isinstance(layer.mlp, MoEWrapper):
-                layer.mlp.current_gate_probs = gate_probs
-
+    # MoEWrapper now calls the frozen router internally on each layer's hidden state,
+    # so no gate_probs injection is needed here.
     with torch.no_grad():
         output_ids = model.lm.generate(
             inputs_embeds=inputs_embeds,
@@ -109,11 +102,6 @@ def generate_response(model: MedMoE, tokenizer, image_tensor: torch.Tensor, ques
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
         )
-
-    if model._moe_active:
-        for layer in model.lm.model.layers:
-            if isinstance(layer.mlp, MoEWrapper):
-                layer.mlp.current_gate_probs = None
 
     # generated tokens only (strip the prompt length)
     generated = output_ids[0][inputs_embeds.shape[1]:]
@@ -137,14 +125,11 @@ def run_sample(model, tokenizer, preprocess, sample: dict, sample_idx: int):
     image_tensor = preprocess(image).unsqueeze(0).to(DEVICE)
 
     with torch.no_grad():
-        # router prediction — reads T_comb directly (paper eq. 3)
+        # router reads T_i only (paper Fig. 2: projector output → Router)
         image_emb   = model.clip(image_tensor)
         image_token = model.proj(image_emb).to(next(model.lm.parameters()).dtype)
-        dummy_ids   = torch.zeros(1, 1, dtype=torch.long, device=DEVICE)
-        text_embeds = model.lm.model.embed_tokens(dummy_ids)
-        inputs_embeds = torch.cat([image_token, text_embeds], dim=1)
 
-        router_logits = model.router(inputs_embeds)
+        router_logits = model.router(image_token)   # (1, num_experts)
         pred_domain   = router_logits.argmax(-1).item()
 
     print(f"\n  Router: predicted={DOMAIN_NAMES[pred_domain]}  true={true_domain}  "

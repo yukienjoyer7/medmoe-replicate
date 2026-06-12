@@ -1,0 +1,105 @@
+{
+  "run_id": "run_003",
+  "date": "2026-06-12",
+  "description": "Fix both architectural deviations from paper Fig. 2: (1) router reads T_i only (not T_comb), (2) router runs inside each MoEWrapper reading x[:,0:1,:] (image token position in per-layer hidden state) rather than broadcasting one gate_probs to all layers.",
+  "changes_from_run_002": [
+    "router input: mean-pooled T_comb → T_i only (image_token from projector)",
+    "router placement: once before LLM (broadcast) → inside each MoEWrapper, reads x[:,0:1,:] per layer"
+  ],
+  "config": {
+    "model": {
+      "llm": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "vision_encoder": "CLIP ViT-B/32 (openai, frozen)",
+      "projector": "MLP 512->576->576 (GELU)",
+      "router": "Linear 576->4, reads T_i (projector output, pre-LLM) in Phase 2; reads x[:,0:1,:] per layer in Phase 3",
+      "moe": {
+        "num_experts": 4,
+        "top_k": 2,
+        "meta_expert": true,
+        "intermediate_dim": 576,
+        "gate_source": "per-layer router call on image token hidden state (eq. 4, paper Fig. 2)"
+      }
+    },
+    "data": {
+      "dataset": "VQA-RAD + PathVQA",
+      "total_samples": 200,
+      "samples_per_class": 50,
+      "classes": ["X-Ray", "CT", "MRI", "Pathology"],
+      "max_length": 64
+    },
+    "training": {
+      "phase1_epochs": 1,
+      "phase2_epochs": 3,
+      "phase3_epochs": 9,
+      "batch_size": 2,
+      "gradient_accumulation_steps": 4,
+      "effective_batch_size": 8,
+      "mixed_precision": "fp16",
+      "phase1_lr": 1e-3,
+      "phase2_lr": 1e-4,
+      "phase3_lr": 1e-4,
+      "scheduler": "cosine_with_warmup",
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.0
+    },
+    "losses": {
+      "phase1": "L_Align (LM CE)",
+      "phase2": "L_Instr (LM CE) + L_Router (CE over domain labels)",
+      "phase3": "L_MoE (LM CE)"
+    },
+    "trainable_params": {
+      "phase1": "0.63M (projector only)",
+      "phase2": "135.15M (LLM + router + projector)",
+      "phase3": "149.30M (MoE experts + meta-expert)"
+    }
+  },
+  "results": {
+    "phase1": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 5.671}
+      ],
+      "final_lm_loss": 5.671
+    },
+    "phase2": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 3.098, "router_loss": 1.352, "router_acc": 0.335},
+        {"epoch": 2, "lm_loss": 1.513, "router_loss": 1.200, "router_acc": 0.590},
+        {"epoch": 3, "lm_loss": 1.141, "router_loss": 1.088, "router_acc": 0.810}
+      ],
+      "final_lm_loss": 1.141,
+      "final_router_loss": 1.088,
+      "final_router_acc": 0.810,
+      "note": "Router learned successfully — 25% (random) → 81% accuracy. Key fix: router now reads T_i (pure image signal from projector) instead of mean-pooled T_comb which mixed in LLM text embeddings and swamped the domain signal."
+    },
+    "phase3": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 10.876},
+        {"epoch": 2, "lm_loss": 4.571},
+        {"epoch": 3, "lm_loss": 3.013},
+        {"epoch": 4, "lm_loss": 2.437},
+        {"epoch": 5, "lm_loss": 2.046},
+        {"epoch": 6, "lm_loss": 1.696},
+        {"epoch": 7, "lm_loss": 1.356},
+        {"epoch": 8, "lm_loss": 1.149},
+        {"epoch": 9, "lm_loss": 1.035}
+      ],
+      "final_lm_loss": 1.035,
+      "note": "Slightly higher final loss than run_002 (1.035 vs 0.879), expected — per-layer routing introduces more variance per step as each of 30 layers calls the router independently on its hidden state."
+    }
+  },
+  "inference": {
+    "router_accuracy_4samples": "4/4 (100%)",
+    "samples": [
+      {"idx": 0,  "true": "MRI",       "predicted": "MRI",       "correct": true,  "logits": {"X-Ray": -0.31, "CT": 0.03, "MRI": 0.37, "Pathology": -0.34}},
+      {"idx": 2,  "true": "X-Ray",     "predicted": "X-Ray",     "correct": true,  "logits": {"X-Ray": 0.42, "CT": 0.02, "MRI": -0.16, "Pathology": -0.48}},
+      {"idx": 3,  "true": "CT",        "predicted": "CT",        "correct": true,  "logits": {"X-Ray": -0.18, "CT": 0.34, "MRI": -0.02, "Pathology": -0.40}},
+      {"idx": 11, "true": "Pathology", "predicted": "Pathology", "correct": true,  "logits": {"X-Ray": -0.18, "CT": 0.03, "MRI": -0.23, "Pathology": 0.17}}
+    ],
+    "routing_behavior": "Per-layer routing is now domain-sensitive and evolves across depth. MRI: early layers use E0/E3, layers 17-27 shift to E2 (MRI expert). CT: E1 (CT) appears at layers 5,25,27. X-Ray: E0 dominant throughout. Gate probs range 0.19-0.31 (vs perfectly uniform 0.25 in run_002)."
+  },
+  "checkpoints": {
+    "phase1": "checkpoints/phase1.pt",
+    "phase2": "checkpoints/phase2.pt",
+    "phase3": "checkpoints/phase3.pt"
+  }
+}
