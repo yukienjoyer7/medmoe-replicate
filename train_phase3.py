@@ -16,15 +16,15 @@ sys.path.insert(0, os.path.dirname(__file__))
 import torch
 from torch.amp import autocast, GradScaler
 from torch.utils.data import DataLoader
-from transformers import get_linear_schedule_with_warmup
+from transformers import get_cosine_schedule_with_warmup
 
 from model.medmoe import MedMoE, MoEWrapper
 from data.dataset import MedMoEDataset
 
-EPOCHS     = 3
+EPOCHS     = 9
 BATCH_SIZE = 2
 ACCUM      = 4
-LR         = 3e-4
+LR         = 1e-4
 MAX_LEN    = 64
 DATA_JSON  = "data/dataset.json"
 LOAD_PATH  = "checkpoints/phase2.pt"
@@ -62,10 +62,10 @@ def train():
     print(f"Trainable params: {trainable/1e6:.2f}M (MoE experts + meta-expert)")
 
     optimizer = torch.optim.AdamW(
-        [p for p in model.parameters() if p.requires_grad], lr=LR
+        [p for p in model.parameters() if p.requires_grad], lr=LR, weight_decay=0.0
     )
     total_steps = EPOCHS * (len(dataloader) // ACCUM)
-    scheduler   = get_linear_schedule_with_warmup(
+    scheduler   = get_cosine_schedule_with_warmup(
         optimizer, num_warmup_steps=total_steps // 10, num_training_steps=total_steps
     )
     scaler = GradScaler("cuda")

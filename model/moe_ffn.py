@@ -5,16 +5,15 @@ Expert structure matches SmolLM's LlamaMLP (SwiGLU) so Phase 3 can copy
 weights from the trained FFN. intermediate_dim is kept small (default=576)
 to fit in 6GB VRAM.
 
-Output = Σ(top-k gated domain experts) + meta_expert(x)
-         ↑ specialised                    ↑ always activated, captures global info
+Output = Σ(top-k gated domain experts) + meta_expert(x)   (paper eq. 4)
+         ↑ G_i from frozen sequence-level Router            ↑ always activated
 
-Aux loss (Switch Transformer):
-  L_aux = N * Σ_i(f_i * p_i)  — only over domain experts, not meta.
+No learned gate inside this module — gating comes from the Router via
+MoEWrapper.current_gate_probs (set by MedMoE.forward before calling lm).
 """
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class Expert(nn.Module):
@@ -59,34 +58,30 @@ class MoEFFN(nn.Module):
             [Expert(hidden_dim, intermediate_dim) for _ in range(num_experts)]
         )
         self.meta_expert = Expert(hidden_dim, intermediate_dim)
-        self.gate        = nn.Linear(hidden_dim, num_experts, bias=False)
 
         self.last_routing: dict | None = None  # populated on every forward pass
 
-    def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    def forward(self, x: torch.Tensor, gate_probs: torch.Tensor) -> torch.Tensor:
         """
         Args:
-            x: (B, T, D)
+            x:          (B, T, D)
+            gate_probs: (B, num_experts) — softmax of Router logits, sequence-level
         Returns:
-            output:   (B, T, D)
-            aux_loss: scalar
+            output: (B, T, D)
         """
         B, T, D = x.shape
-        x_flat  = x.view(-1, D)
-        N       = x_flat.shape[0]
+        x_flat  = x.view(-1, D)   # (B*T, D)
 
-        # --- gating ---
-        gate_logits = self.gate(x_flat)
-        gate_probs  = F.softmax(gate_logits, dim=-1)
+        # broadcast sequence-level gate to every token in the sequence
+        token_probs = gate_probs.unsqueeze(1).expand(-1, T, -1).reshape(B * T, self.num_experts)
 
-        top_k_probs, top_k_indices = torch.topk(gate_probs, self.top_k, dim=-1)
+        top_k_probs, top_k_indices = torch.topk(token_probs, self.top_k, dim=-1)
         top_k_weights = top_k_probs / top_k_probs.sum(dim=-1, keepdim=True)
 
-        # store mean routing decision across tokens for inspection
         self.last_routing = {
-            "indices": top_k_indices.detach().cpu(),   # (N, top_k)
-            "weights": top_k_weights.detach().cpu(),   # (N, top_k)
-            "gate_probs": gate_probs.detach().cpu(),   # (N, num_experts)
+            "indices":    top_k_indices.detach().cpu(),   # (B*T, top_k)
+            "weights":    top_k_weights.detach().cpu(),   # (B*T, top_k)
+            "gate_probs": token_probs.detach().cpu(),     # (B*T, num_experts)
         }
 
         # --- domain experts ---
@@ -99,24 +94,7 @@ class MoEFFN(nn.Module):
                 if mask.any():
                     domain_out[mask] += weight[mask] * self.experts[e](x_flat[mask])
 
-        # --- meta expert (always activated) ---
+        # --- meta expert (always activated, captures global info) ---
         meta_out = self.meta_expert(x_flat)
 
-        output = (domain_out + meta_out).view(B, T, D)
-
-        # --- aux load-balancing loss (domain experts only) ---
-        aux_loss = self._aux_loss(gate_probs, top_k_indices, N)
-
-        return output, aux_loss
-
-    def _aux_loss(
-        self,
-        gate_probs:    torch.Tensor,
-        top_k_indices: torch.Tensor,
-        N:             int,
-    ) -> torch.Tensor:
-        dispatch = torch.zeros(N, self.num_experts, device=gate_probs.device)
-        dispatch.scatter_(1, top_k_indices, 1.0)
-        f = dispatch.mean(dim=0)
-        p = gate_probs.mean(dim=0)
-        return self.num_experts * (f * p).sum()
+        return (domain_out + meta_out).view(B, T, D)

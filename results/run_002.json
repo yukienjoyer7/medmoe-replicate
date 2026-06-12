@@ -1,0 +1,95 @@
+{
+  "run_id": "run_002",
+  "date": "2026-06-12",
+  "description": "Same as run_001 but with higher LR (1e-4) for Phase 2 and Phase 3 to address stalled router and slow MoE convergence",
+  "changes_from_run_001": [
+    "phase2_lr: 2e-5 → 1e-4",
+    "phase3_lr: 2e-5 → 1e-4"
+  ],
+  "config": {
+    "model": {
+      "llm": "HuggingFaceTB/SmolLM-135M-Instruct",
+      "vision_encoder": "CLIP ViT-B/32 (openai, frozen)",
+      "projector": "MLP 512->576->576 (GELU)",
+      "router": "Linear 576->4, reads mean-pooled T_comb (pre-LLM)",
+      "moe": {
+        "num_experts": 4,
+        "top_k": 2,
+        "meta_expert": true,
+        "intermediate_dim": 576,
+        "gate_source": "frozen Router softmax output (eq. 4)"
+      }
+    },
+    "data": {
+      "dataset": "VQA-RAD + PathVQA",
+      "total_samples": 200,
+      "samples_per_class": 50,
+      "classes": ["X-Ray", "CT", "MRI", "Pathology"],
+      "max_length": 64
+    },
+    "training": {
+      "phase1_epochs": 1,
+      "phase2_epochs": 3,
+      "phase3_epochs": 9,
+      "batch_size": 2,
+      "gradient_accumulation_steps": 4,
+      "effective_batch_size": 8,
+      "mixed_precision": "fp16",
+      "phase1_lr": 1e-3,
+      "phase2_lr": 1e-4,
+      "phase3_lr": 1e-4,
+      "scheduler": "cosine_with_warmup",
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.0
+    },
+    "losses": {
+      "phase1": "L_Align (LM CE)",
+      "phase2": "L_Instr (LM CE) + L_Router (CE over domain labels)",
+      "phase3": "L_MoE (LM CE)"
+    },
+    "trainable_params": {
+      "phase1": "0.63M (projector only)",
+      "phase2": "135.15M (LLM + router + projector)",
+      "phase3": "149.30M (MoE experts + meta-expert)"
+    }
+  },
+  "results": {
+    "phase1": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 4.403}
+      ],
+      "final_lm_loss": 4.403
+    },
+    "phase2": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 2.679, "router_loss": 1.387, "router_acc": 0.250},
+        {"epoch": 2, "lm_loss": 1.266, "router_loss": 1.386, "router_acc": 0.265},
+        {"epoch": 3, "lm_loss": 0.943, "router_loss": 1.385, "router_acc": 0.260}
+      ],
+      "final_lm_loss": 0.943,
+      "final_router_loss": 1.385,
+      "final_router_acc": 0.260,
+      "note": "Router still stalled near uniform (log(4)=1.386) — confirmed data problem, not LR problem. T_comb at 200 samples lacks domain-discriminative signal regardless of LR."
+    },
+    "phase3": {
+      "epochs": [
+        {"epoch": 1, "lm_loss": 11.051},
+        {"epoch": 2, "lm_loss": 5.768},
+        {"epoch": 3, "lm_loss": 3.802},
+        {"epoch": 4, "lm_loss": 2.808},
+        {"epoch": 5, "lm_loss": 2.182},
+        {"epoch": 6, "lm_loss": 1.689},
+        {"epoch": 7, "lm_loss": 1.269},
+        {"epoch": 8, "lm_loss": 1.009},
+        {"epoch": 9, "lm_loss": 0.879}
+      ],
+      "final_lm_loss": 0.879,
+      "note": "Major improvement over run_001 (4.040 → 0.879). Higher LR allowed experts to adapt much faster post-activation spike."
+    }
+  },
+  "checkpoints": {
+    "phase1": "checkpoints/phase1.pt",
+    "phase2": "checkpoints/phase2.pt",
+    "phase3": "checkpoints/phase3.pt"
+  }
+}

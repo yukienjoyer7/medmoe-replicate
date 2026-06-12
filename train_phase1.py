@@ -13,12 +13,12 @@ sys.path.insert(0, os.path.dirname(__file__))
 import torch
 from torch.amp import autocast, GradScaler
 from torch.utils.data import DataLoader
-from transformers import get_linear_schedule_with_warmup
+from transformers import get_cosine_schedule_with_warmup
 
 from model.medmoe import MedMoE
 from data.dataset import MedMoEDataset
 
-EPOCHS     = 3
+EPOCHS     = 1
 BATCH_SIZE = 2
 ACCUM      = 4
 LR         = 1e-3
@@ -51,10 +51,10 @@ def train():
     print(f"Trainable params: {trainable/1e6:.2f}M (projector only)")
 
     optimizer = torch.optim.AdamW(
-        [p for p in model.parameters() if p.requires_grad], lr=LR
+        [p for p in model.parameters() if p.requires_grad], lr=LR, weight_decay=0.0
     )
     total_steps = EPOCHS * (len(dataloader) // ACCUM)
-    scheduler   = get_linear_schedule_with_warmup(
+    scheduler   = get_cosine_schedule_with_warmup(
         optimizer, num_warmup_steps=total_steps // 10, num_training_steps=total_steps
     )
     scaler = GradScaler("cuda")

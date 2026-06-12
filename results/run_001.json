@@ -1,18 +1,19 @@
 {
   "run_id": "run_001",
-  "date": "2026-06-11",
-  "description": "3-epoch paper-exact Med-MoE reimplementation on VQA-RAD + PathVQA",
+  "date": "2026-06-12",
+  "description": "Paper-exact Med-MoE reimplementation — corrected architecture + matched paper hyperparams (epochs 1/3/9, LR 2e-5, cosine schedule, weight_decay=0)",
   "config": {
     "model": {
       "llm": "HuggingFaceTB/SmolLM-135M-Instruct",
-      "vision_encoder": "CLIP ViT-B/32 (openai, frozen)",
+      "vision_encoder": "CLIP ViT-B/32 (openai, frozen) — paper uses CLIP-Large, simplified for 6GB VRAM",
       "projector": "MLP 512->576->576 (GELU)",
-      "router": "Linear 576->4",
+      "router": "Linear 576->4, reads mean-pooled T_comb (pre-LLM) — MLPx1, paper Fig.3 row b",
       "moe": {
         "num_experts": 4,
         "top_k": 2,
         "meta_expert": true,
-        "intermediate_dim": 576
+        "intermediate_dim": 576,
+        "gate_source": "frozen Router softmax output (eq. 4) — no learned per-layer gate"
       }
     },
     "data": {
@@ -23,16 +24,19 @@
       "max_length": 64
     },
     "training": {
-      "epochs_per_phase": 3,
+      "phase1_epochs": 1,
+      "phase2_epochs": 3,
+      "phase3_epochs": 9,
       "batch_size": 2,
       "gradient_accumulation_steps": 4,
       "effective_batch_size": 8,
       "mixed_precision": "fp16",
       "phase1_lr": 1e-3,
-      "phase2_lr": 3e-4,
-      "phase3_lr": 3e-4,
-      "scheduler": "linear_with_warmup",
-      "warmup_ratio": 0.1
+      "phase2_lr": 2e-5,
+      "phase3_lr": 2e-5,
+      "scheduler": "cosine_with_warmup",
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.0
     },
     "losses": {
       "phase1": "L_Align (LM CE)",
@@ -42,36 +46,48 @@
     "trainable_params": {
       "phase1": "0.63M (projector only)",
       "phase2": "135.15M (LLM + router + projector)",
-      "phase3": "149.37M (MoE experts + meta-expert)"
-    }
+      "phase3": "149.30M (MoE experts + meta-expert)"
+    },
+    "deviations_from_paper": [
+      "CLIP ViT-B/32 instead of CLIP-Large (VRAM constraint)",
+      "hidden_dim=576 instead of paper's larger LLM hidden dim",
+      "200 samples instead of ~500K (Phase 1) / ~10K (Phase 2-3)",
+      "fp32 instead of bf16 (dtype compatibility)",
+      "feature_select_layer not implemented (using final pooled output)"
+    ]
   },
   "results": {
     "phase1": {
       "epochs": [
-        {"epoch": 1, "lm_loss": 4.822},
-        {"epoch": 2, "lm_loss": 4.077},
-        {"epoch": 3, "lm_loss": 3.641}
+        {"epoch": 1, "lm_loss": 4.831}
       ],
-      "final_lm_loss": 3.641
+      "final_lm_loss": 4.831
     },
     "phase2": {
       "epochs": [
-        {"epoch": 1, "lm_loss": 2.929, "router_loss": 4.291, "router_acc": 0.360},
-        {"epoch": 2, "lm_loss": 1.417, "router_loss": 0.679, "router_acc": 0.810},
-        {"epoch": 3, "lm_loss": 1.005, "router_loss": 0.030, "router_acc": 0.990}
+        {"epoch": 1, "lm_loss": 4.393, "router_loss": 1.392, "router_acc": 0.250},
+        {"epoch": 2, "lm_loss": 2.750, "router_loss": 1.392, "router_acc": 0.250},
+        {"epoch": 3, "lm_loss": 2.272, "router_loss": 1.392, "router_acc": 0.250}
       ],
-      "final_lm_loss": 1.005,
-      "final_router_loss": 0.030,
-      "final_router_acc": 0.990
+      "final_lm_loss": 2.272,
+      "final_router_loss": 1.392,
+      "final_router_acc": 0.250,
+      "note": "Router stalled at uniform distribution (log(4)=1.386) — LR 2e-5 too small to learn domain signal from T_comb at 200 samples"
     },
     "phase3": {
       "epochs": [
-        {"epoch": 1, "lm_loss": 8.219},
-        {"epoch": 2, "lm_loss": 3.347},
-        {"epoch": 3, "lm_loss": 2.268}
+        {"epoch": 1, "lm_loss": 12.920},
+        {"epoch": 2, "lm_loss": 9.594},
+        {"epoch": 3, "lm_loss": 7.460},
+        {"epoch": 4, "lm_loss": 6.091},
+        {"epoch": 5, "lm_loss": 5.276},
+        {"epoch": 6, "lm_loss": 4.699},
+        {"epoch": 7, "lm_loss": 4.355},
+        {"epoch": 8, "lm_loss": 4.127},
+        {"epoch": 9, "lm_loss": 4.040}
       ],
-      "final_lm_loss": 2.268,
-      "note": "Epoch 1 spike expected — MoE activation replaces all FFN layers with truncated weights"
+      "final_lm_loss": 4.040,
+      "note": "Epoch 1 spike expected — MoE activation replaces all FFN layers with truncated weights. Slow recovery due to conservative LR 2e-5"
     }
   },
   "checkpoints": {
